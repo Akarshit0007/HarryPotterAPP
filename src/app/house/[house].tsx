@@ -25,7 +25,8 @@ export default function HouseDetailScreen() {
   const { house } = useLocalSearchParams<{ house: string }>();
 
   // Safely get data; fallback to Gryffindor if the key is missing
-  const data = HOUSE_DATA[house as string] || HOUSE_DATA.gryffindor;
+  const houseKey = (house as string)?.toLowerCase() || 'gryffindor';
+  const data = HOUSE_DATA[houseKey] || HOUSE_DATA.gryffindor;
 
   return (
     <View style={[styles.container, { backgroundColor: data.color }]}>
@@ -45,6 +46,20 @@ export default function HouseDetailScreen() {
       <View style={styles.centerContent}>
         <Text style={[styles.text, { color: data.textColor }]}>Welcome to {data.name}!</Text>
         <Text style={[styles.subtext, { color: data.textColor, opacity: 0.7 }]}>{data.traits}</Text>
+
+        {/* 🆕 NEW BUTTON TO GO TO THE MEMBERS SCREEN */}
+        <TouchableOpacity 
+          style={[styles.membersButton, { backgroundColor: data.textColor === '#000' ? '#000' : '#FFF' }]}
+          onPress={() => router.push({
+            pathname: './houseMember', // The new route we will create
+            params: { house: houseKey } // Pass the selected house along
+          })}
+          activeOpacity={0.8}
+        >
+          <Text style={[styles.membersButtonText, { color: data.textColor === '#000' ? '#FFF' : '#000' }]}>
+            View House Members →
+          </Text>
+        </TouchableOpacity>
       </View>
 
     </View>
@@ -58,5 +73,9 @@ const styles = StyleSheet.create({
   backButtonText: { fontSize: 14, fontWeight: '600', letterSpacing: 0.5 },
   centerContent: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 24, marginTop: -60 },
   text: { fontSize: 28, fontWeight: 'bold', letterSpacing: 1, textAlign: 'center' },
-  subtext: { fontSize: 16, marginTop: 8, textAlign: 'center' }
+  subtext: { fontSize: 16, marginTop: 8, textAlign: 'center' },
+  
+  // 🆕 Button styles
+  membersButton: { marginTop: 30, paddingVertical: 12, paddingHorizontal: 24, borderRadius: 25, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, elevation: 3 },
+  membersButtonText: { fontSize: 16, fontWeight: 'bold' }
 });
