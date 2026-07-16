@@ -72,12 +72,23 @@ export default function HouseMembersScreen() {
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: insets.bottom + 20 }}
           renderItem={({ item }) => (
-            <View style={[styles.card, { backgroundColor: theme.textColor === '#000' ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.15)' }]}>
+            /* CHANGED: Wrapped the View inside an interactive TouchableOpacity */
+            <TouchableOpacity 
+              activeOpacity={0.8}
+              onPress={() => {
+                // Navigates to app/member-details.tsx with the character's id as a query param
+                router.push({
+                  pathname: './houseMemberDetails',
+                  params: { id: item.id }
+                });
+              }}
+              style={[styles.card, { backgroundColor: theme.textColor === '#000' ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.15)' }]}
+            >
               <Text style={[styles.characterName, { color: theme.textColor }]}>{item.name}</Text>
               <Text style={[styles.characterSub, { color: theme.textColor, opacity: 0.7 }]}>
                 Played by: {item.actor || 'Unknown'}
               </Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
       )}

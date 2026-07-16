@@ -178,11 +178,12 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   locallogo: {
-    width: 50,
-    height: 50,
-    alignSelf: 'center',
-    marginBottom: 10,
-  },
+  width: 200,
+  height: 200,
+  alignSelf: 'center',
+  marginBottom: 10,
+  resizeMode: 'contain', // <-- Add this to show the full logo without cropping
+},
   headerRow: {
     gap: 12
   },

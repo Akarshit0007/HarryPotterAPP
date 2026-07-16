@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-export type TabType = 'Hogwarts Staff' | 'House' | 'Spells';
+export type TabType =  'House' | 'Spells';
 
 export function useHeroTabs() {
   const [activeTab, setActiveTab] =useState<TabType>('House');
 
-  const tabs: TabType[] = ['Hogwarts Staff', 'House', 'Spells'];
+  const tabs: TabType[] = ['House', 'Spells'];
 
   return {
     activeTab,
